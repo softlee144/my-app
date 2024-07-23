@@ -1,22 +1,21 @@
-import logo from './logo.svg';
 import './App.css';
+import { useState } from 'react';
+import Sub from './Sub';
 
-// 0. React - 데이터 변경감지해서 UI 그려주는 엔진
-// 1. 실행방식 - SPA
-// 2. jsx 문법
-// 3. 바벨(ES5) -> ES6
 function App() {
-  let number = 1;
+  //let number = 1; // 상태 값 아님
+  const [number, setNumber] = useState(1);
 
   const add = () => {
-    number++;
-    console.log('add', add);
+    setNumber(number + 1); // 리액트한테 number 값 변경할께라고 요청
+    console.log('add', number);
   };
 
   return (
     <div>
       <h1>숫자:{number}</h1>
       <button onClick={add}>더하기</button>
+      <Sub />
     </div>
   );
 }
