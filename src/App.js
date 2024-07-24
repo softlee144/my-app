@@ -1,31 +1,31 @@
+// 중괄호가 있다는 건 파일의 export default function이 아니라는 의미
+import { useEffect, useState } from 'react';
+
 import './App.css';
-import { useState } from 'react';
-import Sub from './Sub';
 
 function App() {
-  console.log('App start');
-  let sample = [
-    { id: 1, name: '홍길동' },
-    { id: 2, name: '임꺽정' },
-    { id: 3, name: '장보고' },
-    { id: 4, name: '강감찬' },
-  ];
-
-  const [users, setUsers] = useState(sample); // 레퍼런스가 변경되야 동작!!
+  const [data, setData] = useState(0);
 
   const download = () => {
-    setUsers([...sample]);
+    // 다운로드 받고 (통신)
+    let downloadData = 5;
+    setData(downloadData);
   };
 
-  // 렌더링 시점 = 상태값 변경
+  // 실행시점
+  // (1) App() 함수가 최초 실행될 때(최초 렌더링 시점)
+  // (2) 상태 변수가 변경될 때
+  useEffect(() => {
+    console.log('useEffect 실행됨!');
+    download();
+  }, []);
+
   return (
     <div>
-      <button onClick={download}>다운로드</button>
-      {users.map((u) => (
-        <h1>
-          {u.id}, {u.name}
-        </h1>
-      ))}
+      <h1>데이터 : {data}</h1>
+      <button on onClick={() => setData(data + 1)}>
+        더하기
+      </button>
     </div>
   );
 }
