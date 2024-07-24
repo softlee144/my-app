@@ -3,19 +3,29 @@ import { useState } from 'react';
 import Sub from './Sub';
 
 function App() {
-  //let number = 1; // 상태 값 아님
-  const [number, setNumber] = useState(1);
+  console.log('App start');
+  let sample = [
+    { id: 1, name: '홍길동' },
+    { id: 2, name: '임꺽정' },
+    { id: 3, name: '장보고' },
+    { id: 4, name: '강감찬' },
+  ];
 
-  const add = () => {
-    setNumber(number + 1); // 리액트한테 number 값 변경할께라고 요청
-    console.log('add', number);
+  const [users, setUsers] = useState(sample); // 레퍼런스가 변경되야 동작!!
+
+  const download = () => {
+    setUsers([...sample]);
   };
 
+  // 렌더링 시점 = 상태값 변경
   return (
     <div>
-      <h1>숫자:{number}</h1>
-      <button onClick={add}>더하기</button>
-      <Sub />
+      <button onClick={download}>다운로드</button>
+      {users.map((u) => (
+        <h1>
+          {u.id}, {u.name}
+        </h1>
+      ))}
     </div>
   );
 }
